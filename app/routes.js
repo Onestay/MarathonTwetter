@@ -46,6 +46,7 @@ module.exports = (app) => {
 		const user = req.body.user;
 		const password = req.body.pass;
 		const email = req.body.email;
+		if (user.length === 0 || password.length === 0 || email.length === 0) return res.send({ status: 'error', message: '' });
 		bcrypt.genSalt(10, (err, salt) => {
 			if (err) return console.log(err);
 			bcrypt.hash(password, salt, (error, hash) => {
@@ -55,12 +56,15 @@ module.exports = (app) => {
 					timeout: 40000,
 					values: [user.toLowerCase(), email, hash]
 				}, (errmysql, results) => {
-					if (errmysql) {
+					if (errmysql && errmysql.code === 'ER_DUP_ENTRY') {
 						let responseObject = {
 							status: 'error',
-							message: errmysql
+							message: 'This username or email already exist.'
 						};
-						res.send(responseObject);
+						return res.send(responseObject);
+					}
+					if (!results) {
+						return res.send({ status: 'error', message: 'Error. This is most likely caused by the username or email already existing.' });
 					}
 					let responseObject = {
 						status: 'ok',
