@@ -1,0 +1,35 @@
+{
+  "name": "marathon-tweeter",
+  "version": "0.1.0",
+  "description": "A simple express app to tweet game changes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Onestay/MarathonTwetter.git"
+  },
+  "keywords": [
+    "Marathon",
+    "speedrun",
+    "twitter"
+  ],
+  "author": "Onestay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Onestay/MarathonTwetter/issues"
+  },
+  "homepage": "https://github.com/Onestay/MarathonTwetter#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.1",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "jquery": "^3.1.1",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "nodemon": "^1.11.0"
+  }
+}
