@@ -1,6 +1,10 @@
 /* eslint-disable */
 
 $(() => {
+	if (typeof(Storage) === 'undefined') {
+		return alert('Your browser does not appear to have localstorage. Please consider upgrading your browser');
+	}
+	
 	var $formLogin = $('#login-form');
 	var $formLost = $('#lost-form');
 	var $formRegister = $('#register-form');
@@ -64,6 +68,33 @@ $(() => {
 	});
 	$('#register_lost_btn').click(() => {
 		modalAnimate($formRegister, $formLost);
+	});
+	var loginUser, loginPass;
+
+$('#loginSendButton').click(() => {
+		loginUser = $("#login_username").val();
+		loginPass = $("#login_password").val();
+		$.post('http://localhost:3000/login', { user: loginUser, pass: loginPass}, (data) => {
+			if (data.status !== 'ok') {
+				$('#loginError').css('display', 'block').html(data.message);
+			} else {
+				window.location.href = "http://localhost:3000/dashboard";
+			}
+		});
+	});
+	var registerUser, registerEmail, registerPass;
+
+	$('#registerSendButton').click(() => {
+		var registerUser = $('#register_username').val();
+		var registerEmail = $('#register_email').val();
+		var registerPass = $('#register_password').val();
+		$.post('http://localhost:3000/register', { user: registerUser, pass: registerPass, email: registerEmail }, (data) => {
+			if (data.status !== 'ok') {
+				$('#registerError').css('display', 'block').html(data.message);
+			} else {
+				window.location.href = "http://localhost:3000/dashboard";
+			}
+		});
 	});
 
 	function modalAnimate($oldForm, $newForm) {

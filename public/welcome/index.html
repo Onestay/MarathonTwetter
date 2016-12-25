@@ -37,7 +37,7 @@
                 <div id="div-forms">
 
                     <!-- Begin # Login Form -->
-                    <form id="login-form">
+                    <form id="login-form" action="/" method="POST">
                         <div class="modal-body">
                             <div id="div-login-msg">
                                 <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -45,16 +45,12 @@
                             </div>
                             <input id="login_username" class="form-control" type="text" placeholder="Username" required>
                             <input id="login_password" class="form-control" type="password" placeholder="Password" required>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Remember me
-                                </label>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                                <button id="loginSendButton" type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
                             </div>
+							<span style="display: none; color: red; margin-top: 10px;" id="loginError">Test</span>
                             <div>
                                 <button id="login_register_btn" type="button" class="btn btn-link">Register</button>
                             </div>
@@ -74,8 +70,9 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                                <button type="submit" id="registerSendButton" class="btn btn-primary btn-lg btn-block">Register</button>
                             </div>
+							<span style="display: none; color: red; margin-top: 10px;" id="registerError">Test</span>
                             <div>
                                 <button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
                             </div>
