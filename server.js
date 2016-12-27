@@ -8,7 +8,7 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const port = 3000;
+const port = 3055;
 
 // redis to store session data
 const RedisStore = require('connect-redis')(session);
