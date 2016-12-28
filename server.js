@@ -28,6 +28,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+app.set('view engine', 'ejs');
 
 // check for the existence of req.session
 app.use((req, res, next) => {

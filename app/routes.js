@@ -22,7 +22,7 @@ module.exports = (app) => {
 		const password = req.body.pass;
 		sql.query('SELECT * FROM `user` WHERE `username` = ?', [user], (errSql, results) => {
 			if (errSql) return console.log(errSql);
-			if (results.length === 0) return res.send({ status: 'error', message: 'This user/password combination doesn\' exist. Try again.' });
+			if (results.length === 0) return res.send({ status: 'error', message: 'Wrong login credentials' });
 			bcrypt.compare(password, results[0].password, (err, resBcrypt) => {
 				if (err) return console.log(err);
 				if (resBcrypt === true) {
@@ -36,7 +36,7 @@ module.exports = (app) => {
 					};
 					res.send(responseObject);
 				} else {
-					return res.send({ status: 'error', message: 'This user/password combination doesn\'t exist. Try again.' });
+					return res.send({ status: 'error', message: 'Wrong login credentials' });
 				}
 			});
 		});
@@ -83,9 +83,10 @@ module.exports = (app) => {
 
 	app.get('/dashboard', (req, res) => {
 		if (!req.session.user) {
-			res.redirect('/');
+			res.redirect('/welcome');
+		} else {
+			res.send('xXDashboardMasterXx');
 		}
-		res.send('A wonderful dashboard');
 	});
 
 	app.get('/clearuserdata', (req, res) => {
@@ -99,6 +100,12 @@ module.exports = (app) => {
 		if (!req.session.user) {
 			res.redirect('/welcome');
 		} else {
+			res.redirect('/dashboard');
+		}
+	});
+
+	app.get('/welcome', (req, res) => {
+		if (req.session.user) {
 			res.redirect('/dashboard');
 		}
 	});
