@@ -1,0 +1,36 @@
+body {
+	margin: 15px 30px;
+}
+
+h1 {
+	font-size: 3.5em;
+	padding-bottom: 10px;
+	border-bottom: 2px solid grey;
+}
+
+.greeting {
+	font-size: 1.5em;
+	margin: 15px 0;
+}
+
+h2, strong {
+	text-decoration: underline;
+}
+
+.scheduleText {
+	margin: 10px 0 5px 0;
+}
+
+.twitchText {
+	margin-top: 10px;
+}
+
+.e-message {
+	font-size: 1.25em;
+	color: red;
+	font-weight: bold;
+}
+
+.hidden {
+	display: none;
+}

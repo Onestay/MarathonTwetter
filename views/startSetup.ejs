@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tweeter | Setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/startSetup.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(() => {
+            $('#twitterButton').click(() => {
+                window.location.replace('/twitter')
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <h1>Welcome
+        <%= username %>
+    </h1>
+    <h3>Thank you for using the Marathon Tweeter! However before you can start we have to setup a few things. Start by clicking the "Authenticate with Twitter" button below.
+    </h3>
+    <button type="button" id="twitterButton" class="btn btn-primary">Authenticate with Twitter</button>
+    <p>This Twitter-Account will be used for Tweeting the upcoming games.</p>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tweeter | Setup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/scheduleSetup.css">
+    <script>
+        $(() => {
+            setTimeout(function() {
+                $.post('/importSchedule', {}, (data) => {
+                    let dataObject = {
+                        accessToken: data.accessToken,
+                        accessSecret: data.accessSecret
+                    };
+                    localStorage.setItem('twitterTokens', JSON.stringify(dataObject));
+                });
+            }, 3000);
+
+			$('#submitButton').click(() => {
+				let twitchUsername = $('#twitchUsername').val();
+				let horaro = $('#horaroLink').val();
+
+				if (horaro.length === 0 || twitchUsername.length === 0) {
+					return errorText('Please fill out both fields');
+				}
+				$.post('/validateSettings', {twitch: `twitchUsername`, horaro: horaro }, (data) => {
+                    const ok = data[0].status === 'ok';
+					if (!ok) {
+						return errorText(data.message);
+                    } else if (ok) {
+						let optional = JSON.stringify(data[1]);
+                        localStorage.setItem('optionals', optional);
+                        location.href = '/dashboard'
+					}
+				});
+			});
+
+			function errorText(text) {
+				let eSpan = $('#e');
+                eSpan.text(text).fadeIn(2).removeClass('hidden');
+				setTimeout(() => {
+                    eSpan.fadeOut(2).text('').addClass('hidden');
+					eSpan.text('').addClass('hidden');
+				}, 4000)
+			}
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Schedule Import</h1>
+    <p class="greeting">Great, @<%= twitterHandle %>! We'll now have to setup a few more things:</p>
+    <h2>Twitch</h2>
+    <p class="twitchText">The app will need the Twitchusername of the channel the Marathon is being streamed on. Just enter it below!</p>
+    <form>
+        <div class="form-group">
+            <input type="email" id="twitchUsername" class="form-control" size="20" style="max-width: 20%" placeholder="Enter your twitch username here">
+        </div>
+    </form>
+    <h2>Schedule</h2>
+    <p class="scheduleText">Currently only Horaro is accepted as a Schedule.<br><strong>PLEASE NOTE</strong></p>
+    <ul>
+        <li>the schedule has to be in the format of "Game" "Runner(s)" "Category" "Console" "Link to profile(eg. twitch)</li>
+        <li>"Console" and "Link to profile" are optional</li>
+        <li>"Schedules Time" and "Estimate" can be in any position</li>
+        <li>The schedule can't be private</li>
+    </ul>
+    <p><a href="https://horaro.org/examplethon/exschedule">Here </a>is an example schedule.</p>
+    <form>
+        <div class="form-group">
+            <input type="url" id="horaroLink" class="form-control" size="20" style="max-width: 20%" placeholder="Enter the schedule URL">
+        </div>
+    </form>
+    <p>If you're done just press the button below and you are ready to go!</p>
+	<button type="button" class="btn btn-primary" id="submitButton">Submit</button>
+	<span class="e-message hidden" id="e"></span>
+</body>
+
+</html>
