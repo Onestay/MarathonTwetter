@@ -50,7 +50,7 @@ $(() => {
         }, (data) => {
             if (data.status === 'ok') {
                 msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), 'success', 'glyphicon-ok', 'Redirecting to dashboard...');
-                return window.location.href = "http://localhost:3055/dashboard";
+                return window.location.href = "/startSetup";
             } else if (data.status !== 'ok') {
                 return msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), 'error', 'glyphicon-remove', data.message);
             }

@@ -29,14 +29,13 @@
 					return errorText('Please fill out both fields');
 				}
 				$.post('/validateSettings', {twitch: `twitchUsername`, horaro: horaro }, (data) => {
-                    const ok = data[0].status === 'ok';
-					if (!ok) {
-						return errorText(data.message);
-                    } else if (ok) {
-						let optional = JSON.stringify(data[1]);
+                    if (data.constructor === Array) {
+                        let optional = JSON.stringify(data[1]);
                         localStorage.setItem('optionals', optional);
                         location.href = '/dashboard'
-					}
+                    } else {
+                        return errorText(data.message);
+                    }
 				});
 			});
 
@@ -66,6 +65,7 @@
     <p class="scheduleText">Currently only Horaro is accepted as a Schedule.<br><strong>PLEASE NOTE</strong></p>
     <ul>
         <li>the schedule has to be in the format of "Game" "Runner(s)" "Category" "Console" "Link to profile(eg. twitch)</li>
+        <li>link to profile can either be "Twitch Username(s)", "Twitter Profile(s)", "Speedrun.com Profile(s)", "Facebook Profile(s)"</li>
         <li>"Console" and "Link to profile" are optional</li>
         <li>"Schedules Time" and "Estimate" can be in any position</li>
         <li>The schedule can't be private</li>

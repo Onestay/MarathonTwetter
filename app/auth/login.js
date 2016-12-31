@@ -31,7 +31,8 @@ module.exports = (app) => {
 					};
 					req.session.user = {
 						user: user,
-						id: results[0].iduser
+						id: results[0].iduser,
+						setup: results[0].setup === 1
 					};
 					res.send(responseObject);
 				} else {
@@ -51,7 +52,7 @@ module.exports = (app) => {
 			bcrypt.hash(password, salt, (error, hash) => {
 				if (error) return console.log(error);
 				sql.query({
-					sql: 'INSERT INTO `user` (`username`, `email`, `password`) VALUES (?, ?, ?);',
+					sql: 'INSERT INTO `user` (`username`, `email`, `password`, `setup`) VALUES (?, ?, ?, 0);',
 					timeout: 40000,
 					values: [user.toLowerCase(), email, hash]
 				}, (errmysql, results) => {
@@ -72,7 +73,8 @@ module.exports = (app) => {
 					console.log('Successfully created a new user!');
 					req.session.user = {
 						user: user,
-						id: results.insertId
+						id: results.insertId,
+						setup: false
 					};
 					res.send(responseObject);
 				});

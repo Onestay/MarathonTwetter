@@ -7,6 +7,8 @@ module.exports = (app) => {
 	app.get('/dashboard', (req, res) => {
 		if (!req.session.user) {
 			res.redirect('/welcome');
+		} else if (!req.session.user.setup) {
+			res.redirect('/startSetup');
 		} else {
 			res.send('xXDashboardMasterXx');
 		}
@@ -34,6 +36,7 @@ module.exports = (app) => {
 	});
 
 	app.get('/startSetup', (req, res) => {
+		if (req.session.user.setup) return res.redirect('/dashboard');
 		res.render('startSetup', { username: req.session.user.user });
 	});
 
