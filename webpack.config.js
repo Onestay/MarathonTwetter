@@ -16,12 +16,5 @@ module.exports = {
 				loader: 'style-loader!css-loader'
 			}
 		]
-	},
-	plugins: [
-		new webpack.ProviderPlugin({
-			jQuery: 'jquery',
-			$: 'jquery',
-			jquery: 'jquery'
-		})
-	]
+	}
 };
