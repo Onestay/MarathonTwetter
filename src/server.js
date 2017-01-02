@@ -29,6 +29,7 @@ app.use(session({
 	saveUninitialized: true
 }));
 app.set('view engine', 'ejs');
+app.set('views', path.join(`${__dirname}/views`));
 
 // check for the existence of req.session
 app.use((req, res, next) => {

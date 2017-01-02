@@ -32,6 +32,8 @@ module.exports = (app) => {
 	app.get('/welcome', (req, res) => {
 		if (req.session.user) {
 			res.redirect('/dashboard');
+		} else {
+			res.render('welcome.ejs');
 		}
 	});
 
