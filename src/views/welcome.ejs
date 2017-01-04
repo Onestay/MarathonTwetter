@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tweeter | Welcome</title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Marathon Tweeter | Home</title>
-	<script src="../build/welcome.js"></script>
+	<script src="../build/welcome.bundle.js"></script>
 </head>
 
 <body>
@@ -33,7 +35,7 @@
                     <form id="login-form">
                         <div class="modal-body">
                             <div id="div-login-msg">
-                                <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"><span id="eMessageSpan"></span></div>
                                 <span id="text-login-msg">Login to access your dashboard.</span>
                             </div>
                             <input id="login_username" class="form-control" type="text" placeholder="Username" required>

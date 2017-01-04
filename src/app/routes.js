@@ -10,7 +10,7 @@ module.exports = (app) => {
 		} else if (!req.session.user.setup) {
 			res.redirect('/startSetup');
 		} else {
-			res.send('xXDashboardMasterXx');
+			res.render('dashboard');
 		}
 	});
 
@@ -33,7 +33,7 @@ module.exports = (app) => {
 		if (req.session.user) {
 			res.redirect('/dashboard');
 		} else {
-			res.render('welcome.ejs');
+			res.render(`welcome`);
 		}
 	});
 
@@ -44,5 +44,9 @@ module.exports = (app) => {
 
 	app.get('/importSchedule', (req, res) => {
 		res.render('importSchedule', { twitterHandle: req.session.user.twitterHandle });
+	});
+
+	app.post('/getUserData', (req, res) => {
+		res.send(req.session.user);
 	});
 };

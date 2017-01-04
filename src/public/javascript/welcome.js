@@ -1,7 +1,8 @@
-/* eslint-disable camelcase, no-invalid-this*/
-import '../css/bootstrap.min.css';
+/* eslint-disable camelcase*/
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/welcome.css';
 import $ from 'jquery';
+import 'tether';
 import 'bootstrap';
 
 console.log(1);
@@ -11,12 +12,12 @@ $(() => {
 		return alert('Your browser does not appear to have localstorage. Please consider upgrading your browser');
 	}
 
-	var $formLogin = $('#login-form');
-	var $formRegister = $('#register-form');
-	var $divForms = $('#div-forms');
-	var $modalAnimateTime = 300;
-	var $msgAnimateTime = 150;
-	var $msgShowTime = 2000;
+	const $formLogin = $('#login-form');
+	const $formRegister = $('#register-form');
+	const $divForms = $('#div-forms');
+	const $modalAnimateTime = 300;
+	const $msgAnimateTime = 150;
+	const $msgShowTime = 2000;
 
 	$('#login_register_btn').click(() => {
 		modalAnimate($formLogin, $formRegister);
@@ -26,8 +27,8 @@ $(() => {
 	});
 
 	$('#loginSendButton').click(() => {
-		var $lg_username = $('#login_username').val();
-		var $lg_password = $('#login_password').val();
+		const $lg_username = $('#login_username').val();
+		const $lg_password = $('#login_password').val();
 		if ($lg_username.length === 0 || $lg_password.length === 0) return;
 		if (!validateInput('login', $lg_username, $lg_password)) return;
 		$.post('http://localhost:3055/login', {
@@ -44,10 +45,9 @@ $(() => {
 	});
 
 	$('#registerSendButton').click(() => {
-		console.log('R');
-		var $rg_username = $('#register_username').val();
-		var $rg_email = $('#register_email').val();
-		var $rg_password = $('#register_password').val();
+		const $rg_username = $('#register_username').val();
+		const $rg_email = $('#register_email').val();
+		const $rg_password = $('#register_password').val();
 		if ($rg_username === 0 || $rg_email === 0 || $rg_password === 0) return;
 		if (!validateInput('register', $rg_username, $rg_password, $rg_email)) return;
 		$.post('http://localhost:3055/register', {
@@ -65,8 +65,8 @@ $(() => {
 	});
 
 	function modalAnimate($oldForm, $newForm) {
-		var $oldH = $oldForm.height();
-		var $newH = $newForm.height();
+		const $oldH = $oldForm.height();
+		const $newH = $newForm.height();
 		$divForms.css('height', $oldH);
 		$oldForm.fadeToggle($modalAnimateTime, () => {
 			$divForms.animate({ height: $newH }, $modalAnimateTime, () => {
@@ -77,12 +77,12 @@ $(() => {
 
 	function msgFade($msgId, $msgText) {
 		$msgId.fadeOut($msgAnimateTime, () => {
-			$(this).text($msgText).fadeIn($msgAnimateTime);
+			$($msgId).text($msgText).fadeIn($msgAnimateTime);
 		});
 	}
 
 	function msgChange($divTag, $iconTag, $textTag, $divClass, $iconClass, $msgText) {
-		var $msgOld = $divTag.text();
+		const $msgOld = $divTag.text();
 		msgFade($textTag, $msgText);
 		$divTag.addClass($divClass);
 		$iconTag.removeClass('glyphicon-chevron-right');
@@ -107,7 +107,7 @@ $(() => {
 			}
 
 			if (!passwordReg.test(password)) {
-				msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), 'error', 'glyphicon-remove', 'Password needs at least 8 characters, one number and one uppercase letter.');
+				msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), 'error', 'glyphicon-remove', 'at least 8 characters, a number, a uppercase letter.');
 				return false;
 			}
 			return true;
